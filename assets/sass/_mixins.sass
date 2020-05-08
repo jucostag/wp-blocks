@@ -1,0 +1,59 @@
+@mixin splashHeightConfig($prefix ,$block, $minHeight, $height, $negativeMargin)
+	$sizes: (small: $smallHeight, standard: $standardHeight, medium: $mediumHeight, large: $largeHeight, slider: $sliderHeight)
+	
+	@each $sizeName, $sizeValue in $sizes
+		&.#{$prefix}#{$block}--height-#{$sizeName}
+			@if $minHeight
+				min-height: $sizeValue
+			@if $height
+				height: $sizeValue
+			@if $negativeMargin
+				margin-top: -$sizeValue
+
+@mixin gridWidthConfig()
+	$sizes: (half: $gridListHalf, one-third: $gridListOneThird, two-thirds: $gridListTwoThirds)
+
+	@each $sizeName, $sizeValue in $sizes
+		&--#{$sizeName}
+			width: -webkit-calc(#{$sizeValue} - (#{$gridMargin} * 2))
+			width: -moz-calc(#{$sizeValue} - (#{$gridMargin} * 2))
+			width: calc(#{$sizeValue} - (#{$gridMargin} * 2))
+			@media screen and (max-width: $mobileBreakpoint)
+				width: 100vw
+
+@mixin fontRendering($rendering, $webkitSmoothing, $mozSmoothing)
+	text-rendering: $rendering
+	-webkit-font-smoothing: $webkitSmoothing
+	-moz-osx-font-smoothing: $mozSmoothing
+
+@mixin backgroundGradient($startColor, $startPoint, $colorStop, $colorStopPoint, $endColor, $hexStartColor, $hexEndColor, $gradientType)
+	background: $startColor
+	background: -moz-linear-gradient(top, $startColor 0%, $startColor $startPoint, $colorStop $colorStopPoint, $endColor 100%)
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, $startColor), color-stop(1%, $startColor), color-stop(($colorStopPoint - 3), $colorStop), color-stop(100%, $endColor))
+	background: -webkit-linear-gradient(top, $startColor 0%, $startColor $startPoint, $colorStop $colorStopPoint, $endColor 100%)
+	background: -o-linear-gradient(top, $startColor 0%, $startColor $startPoint, $colorStop $colorStopPoint, $endColor 100%)
+	background: -ms-linear-gradient(top, $startColor 0%, $startColor $startPoint, $colorStop $colorStopPoint, $endColor 100%)
+	background: linear-gradient(to bottom, $startColor 0%, $startColor $startPoint, $colorStop $colorStopPoint, $endColor 100%)
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$hexStartColor, endColorstr=$hexEndColor, GradientType=$gradientType )
+
+@mixin backgroundPosition($size, $verticalPosition, $horizontalPosition, $repeat)
+	background-size: $size
+	background-position: $verticalPosition $horizontalPosition
+	background-repeat: $repeat
+
+@mixin boxShadow($horizontalLength, $verticalLength, $blurRadius, $spreadRadius, $color)
+	box-shadow: $horizontalLength $verticalLength $blurRadius $spreadRadius $color
+	-webkit-box-shadow: $horizontalLength $verticalLength $blurRadius $spreadRadius $color
+	-moz-box-shadow: $horizontalLength $verticalLength $blurRadius $spreadRadius $color
+
+@mixin opacityTransition($time, $transitionEffect, $finalOpacity)
+	-webkit-transition: opacity $time $transitionEffect
+	-moz-transition: opacity $time $transitionEffect
+	transition: opacity $time $transitionEffect
+	opacity: $finalOpacity
+
+@mixin scaleTransition($size)
+	-ms-transform: scale($size)
+	-moz-transform: scale($size)
+	-webkit-transform: scale($size)
+	transform: scale($size)

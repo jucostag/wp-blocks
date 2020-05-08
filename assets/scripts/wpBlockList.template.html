@@ -1,0 +1,27 @@
+<div class="wp-block-list wp-block-list--{{ layout }} wp-block-list--height-{{ layoutHeight }} animated fadeIn">
+	<div class="wp-block-list__filters wp-block-list__filters--{{ layout }} wp-block-list__filters--height-{{ layoutHeight }}" ng-if="hasFilter">
+		<button class="wp-block-list__filter wp-block-list__filter--all wp-block-list__filter--{{ layout }} wp-block-list__filter--height-{{ layoutHeight }} wp-block-list__filter--active" ng-click="filterPosts('all')">Todos</button>
+		<button class="wp-block-list__filter wp-block-list__filter--{{ filter.slug }} wp-block-list__filter--{{ layout }} wp-block-list__filter--height-{{ layoutHeight }}" ng-repeat="(key, filter) in filters" ng-hide="hideTag(filter.slug)" ng-click="filterPosts(filter.slug)">{{ filter.name }}</button>
+	</div>
+
+	<div class="wp-block-list__posts wp-block-list__posts--{{ layout }} wp-block-list__posts--height-{{ layoutHeight }}">
+
+		<div ng-repeat="post in postsList track by $index" ng-class="gridCalc($index)" class="wp-block wp-block--{{ layout }} wp-block--height-{{ layoutHeight }} wp-block--grid animated fadeIn">
+			<div class="wp-block__image wp-block__image--{{ layout }} wp-block__image--height-{{ layoutHeight }} wp-block__image--loaded animated fadeIn" style="background-image: url('{{ post.attachments | imgByResolution:layout:imgSize }}')"></div>
+			<div class="wp-block__content wp-block__content--{{ layout }} wp-block__content--height-{{ layoutHeight }} wp-block--image-loaded">
+				<h4 class="wp-block__title wp-block__title--{{ layout }} wp-block__title--height-{{ layoutHeight }}">{{ post.title }}</h4>
+				<p ng-if="hasExcerpt && post.excerpt !== ''" class="wp-block__excerpt wp-block__excerpt--{{ layout }} wp-block__excerpt--height-{{ layoutHeight }}">{{ post.excerpt }}</p>
+			</div>
+			<div class="wp-block--image-loaded wp-block__tags wp-block__tags--{{ layout }} wp-block__tags--height-{{ layoutHeight }}">
+				<div ng-repeat="tag in post.taxonomies" ng-if="hasTags && tag.name == tagsFromTax" class="wp-block--image-loaded wp-block__tax wp-block__tax--{{ layout }} wp-block__tax--height-{{ layoutHeight }} wp-block__tax--{{ tag.name }}">
+					<span ng-repeat="term in tag.terms" ng-hide="hideTag(term.slug)" class="wp-block__tag wp-block__tag--{{ layout }} wp-block__tag--height-{{ layoutHeight }} wp-block__tag--{{ term.slug }}">{{ term.name }}</span>
+				</div>
+				<div ng-if="hasLogo && post.attachments.logo !== ''" class="wp-block__logo wp-block__logo--{{ layout }} wp-block__image--loaded wp-block__logo--height-{{ layoutHeight }}" style="background-image: url('{{ post.attachments.logo }}')"></div>
+			</div>
+			<a class="wp-block--image-loaded wp-block__permalink wp-block__permalink--{{ layout }} wp-block__permalink--height-{{ layoutHeight }}" href="{{ post.permalink }}" title="{{ post.title }}">&nbsp;</a>
+		</div>
+
+		<div ng-if="loadMore" lazy-scroll="getNextPage()" lazy-scroll-trigger="1">
+
+	</div>
+</div>

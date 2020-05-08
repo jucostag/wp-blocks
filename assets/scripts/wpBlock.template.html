@@ -1,0 +1,8 @@
+<div class="wp-block wp-block--{{ layout }} wp-block--height-{{ layoutHeight }} animated fadeIn">
+    <div class="wp-block__image wp-block__image--{{ layout }} wp-block__image--height-{{ layoutHeight }} animated" lazy-img="{{ post.attachments | imgByResolution:layout:imgSize }}"></div>
+    <div class="wp-block__content wp-block__content--{{ layout }} wp-block__content--height-{{ layoutHeight }}">
+        <h4 class="wp-block__title wp-block__title--{{ layout }} wp-block__title--height-{{ layoutHeight }}">{{ post.title }}</h4>
+        <p ng-if="hasExcerpt && post.excerpt !== ''" class="wp-block__excerpt wp-block__excerpt--{{ layout }} wp-block__excerpt--height-{{ layoutHeight }}">{{ post.excerpt }}</p>
+    </div>
+    <a class="wp-block__permalink wp-block__permalink--{{ layout }} wp-block__permalink--height-{{ layoutHeight }}" href="{{ post.permalink }}" title="{{ post.title }}">&nbsp;</a>
+</div>
